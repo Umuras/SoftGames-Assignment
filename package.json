@@ -1,0 +1,24 @@
+{
+  "name": "softgames-assignment",
+  "version": "1.0.0",
+  "description": "SoftGames Assignment - A simple game built with Pixi.js and TypeScript",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "gsap": "^3.14.2",
+    "pixi.js": "^8.16.0",
+    "vite": "^7.3.1"
+  },
+  "devDependencies": {
+    "@types/pixi.js": "^4.8.9",
+    "typescript": "^5.9.3"
+  }
+}
