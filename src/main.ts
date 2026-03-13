@@ -1,4 +1,5 @@
 import { Application, Text } from "pixi.js";
+import { startMainMenu } from "./mainMenu";
 
 async function startApp() {
   const app = new Application({
@@ -13,16 +14,22 @@ async function startApp() {
 
   const fpsText = new Text("FPS: 0", {
     fontFamily: "Arial",
-    fontSize: 22,
-    fill: 0x000000,
+    fontSize: 33,
+    fontWeight: "bold",
+    fill: 0xffffff,
   });
   fpsText.x = 10;
   fpsText.y = 10;
+  fpsText.zIndex = 1000;
+
+  app.stage.sortableChildren = true;
   app.stage.addChild(fpsText);
 
   app.ticker.add(() => {
     fpsText.text = `FPS: ${Math.round(app.ticker.FPS)}`;
   });
+
+  await startMainMenu(app);
 }
 
 startApp();

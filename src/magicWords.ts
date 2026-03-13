@@ -1,13 +1,32 @@
-import { Application, Container, Sprite, Text, Graphics } from "pixi.js";
+import {
+  Application,
+  Container,
+  Sprite,
+  Text,
+  Graphics,
+  Assets,
+} from "pixi.js";
 import axios from "axios";
 import { gsap } from "gsap";
+import { createPauseMenu } from "./pausemenu";
+import { clearGame } from "./utils";
 
 export async function startMagicWords(app: Application) {
+  clearGame(app);
+
   const dialogContainer = new Container();
   dialogContainer.pivot.x = 0.5;
   dialogContainer.x = app.screen.width / 2;
   dialogContainer.y = app.screen.height / 2;
   app.stage.addChild(dialogContainer);
+  await createPauseMenu(app);
+
+  const bgTexture = await Assets.load("/magicwordbg.png");
+  const bgSprite = new Sprite(bgTexture);
+
+  bgSprite.width = app.screen.width;
+  bgSprite.height = app.screen.height;
+  app.stage.addChildAt(bgSprite, 0);
 
   const infoText = new Text("Press SPACE to start the conversation", {
     fontSize: 20,
@@ -72,7 +91,7 @@ export async function startMagicWords(app: Application) {
         }
         const text = new Text(part, {
           fontSize: 22,
-          fill: 0xffffff,
+          fill: 0x000000,
         });
         text.x = cursorX;
         textContainer.addChild(text);
@@ -144,7 +163,7 @@ export async function startMagicWords(app: Application) {
     function showNextDialogue() {
       currentIndex++;
       if (currentIndex >= dialogues.length) {
-        infoText.text = "🎉";
+        infoText.text = "";
         if (!confettiPlayed) {
           confettiPlayed = true;
           gsap.from(dialogContainer.scale, {

@@ -1,11 +1,19 @@
 import { Application, Container, Sprite, Text } from "pixi.js";
 import gsap from "gsap";
+import { createPauseMenu } from "./pausemenu";
+import { clearGame } from "./utils";
 
 export async function startAceofShadows(app: Application) {
+  clearGame(app);
   document.body.appendChild(app.view as HTMLCanvasElement);
 
   const aceContainer = new Container();
   app.stage.addChild(aceContainer);
+  await createPauseMenu(app);
+  const background = Sprite.from("/bgdark.jpg");
+  background.width = app.screen.width;
+  background.height = app.screen.height;
+  app.stage.addChildAt(background, 0);
 
   const stacks: Container[] = [];
   const margin = 150;
@@ -36,7 +44,7 @@ export async function startAceofShadows(app: Application) {
     const label = new Text(`Stack ${i}`, {
       fontFamily: "Arial",
       fontSize: 16,
-      fill: 0x000000,
+      fill: 0xffffff,
     });
     label.anchor.set(0.5);
     label.y = -40;

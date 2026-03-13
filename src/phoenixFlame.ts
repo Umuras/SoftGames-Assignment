@@ -1,4 +1,6 @@
 import { Application, Sprite, Assets, Container, Ticker } from "pixi.js";
+import { createPauseMenu } from "./pausemenu";
+import { clearGame } from "./utils";
 
 type FlameParticle = {
   sprite: Sprite;
@@ -8,19 +10,19 @@ type FlameParticle = {
 };
 
 export async function startPhoenixFlame(app: Application) {
+  clearGame(app);
   const container = new Container();
 
   const texture = await Assets.load("/fire.png");
   const campTexture = await Assets.load("/camp.png");
 
   const campSprite = new Sprite(campTexture);
-  campSprite.scale.set(
-    app.screen.width / campSprite.width,
-    app.screen.height / campSprite.height,
-  );
+  campSprite.width = app.screen.width;
+  campSprite.height = app.screen.height;
 
-  app.stage.addChild(campSprite);
+  app.stage.addChildAt(campSprite, 0);
   app.stage.addChild(container);
+  await createPauseMenu(app);
 
   const particles: FlameParticle[] = [];
   const MAX_PARTICLES = 10;
