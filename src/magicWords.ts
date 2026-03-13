@@ -8,8 +8,8 @@ import {
 } from "pixi.js";
 import axios from "axios";
 import { gsap } from "gsap";
-import { createPauseMenu } from "./pausemenu";
 import { clearGame } from "./utils";
+import { createPauseMenu } from "./pauseMenu";
 
 export async function startMagicWords(app: Application) {
   clearGame(app);

@@ -1,7 +1,7 @@
 import { Application, Container, Sprite, Text } from "pixi.js";
 import gsap from "gsap";
-import { createPauseMenu } from "./pausemenu";
 import { clearGame } from "./utils";
+import { createPauseMenu } from "./pauseMenu";
 
 export async function startAceofShadows(app: Application) {
   clearGame(app);

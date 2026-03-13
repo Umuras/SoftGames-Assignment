@@ -1,6 +1,6 @@
 import { Application, Sprite, Assets, Container, Ticker } from "pixi.js";
-import { createPauseMenu } from "./pausemenu";
 import { clearGame } from "./utils";
+import { createPauseMenu } from "./pauseMenu";
 
 type FlameParticle = {
   sprite: Sprite;
