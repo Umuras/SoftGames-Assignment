@@ -1,10 +1,8 @@
-import { Application, Container, Sprite, Text, Assets } from "pixi.js";
+import { Application, Container, Sprite, Text } from "pixi.js";
 import gsap from "gsap";
 
 export async function startAceofShadows(app: Application) {
-  document.body.appendChild(app.canvas);
-
-  const cardTexture = await Assets.load("/card.png");
+  document.body.appendChild(app.view as HTMLCanvasElement);
 
   const aceContainer = new Container();
   app.stage.addChild(aceContainer);
@@ -35,15 +33,11 @@ export async function startAceofShadows(app: Application) {
     aceContainer.addChild(newStack);
     stacks.push(newStack);
 
-    const label = new Text({
-      text: `Stack ${i}`,
-      style: {
-        fontFamily: "Arial",
-        fontSize: 16,
-        fill: 0x000000,
-      },
+    const label = new Text(`Stack ${i}`, {
+      fontFamily: "Arial",
+      fontSize: 16,
+      fill: 0x000000,
     });
-
     label.anchor.set(0.5);
     label.y = -40;
     newStack.addChild(label);
@@ -52,7 +46,7 @@ export async function startAceofShadows(app: Application) {
   updateStackPositions();
 
   for (let i = 0; i < 144; i++) {
-    const card = Sprite.from(cardTexture);
+    const card = Sprite.from("/card.png");
     card.anchor.set(0.5);
     card.scale.set(0.2);
     card.y = i * 0.5;
@@ -78,7 +72,7 @@ export async function startAceofShadows(app: Application) {
     gsap.to(card, {
       x: target.x,
       y: targetY,
-      rotation: (Math.random() * 6 - 3) * (Math.PI / 180), // ±3°
+      rotation: (Math.random() * 6 - 3) * (Math.PI / 180),
       duration: 2,
       ease: "power2.inOut",
       onComplete: () => {
@@ -108,7 +102,6 @@ export async function startAceofShadows(app: Application) {
 
   moveTopCard();
 
-  // Resize olayında stack pozisyonlarını güncelle
   window.addEventListener("resize", () => {
     app.renderer.resize(window.innerWidth, window.innerHeight);
     updateStackPositions();
