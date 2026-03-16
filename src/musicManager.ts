@@ -3,7 +3,7 @@ let playing = false;
 
 export function getMusic() {
   if (!music) {
-    music = new Audio("/assets/music.wav");
+    music = new Audio("/public/music.wav");
     music.loop = true;
   }
   return music;
